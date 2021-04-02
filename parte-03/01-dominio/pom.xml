@@ -6,18 +6,12 @@
 
     <parent>
         <groupId>com.jornadams</groupId>
-        <artifactId>exemplos</artifactId>
+        <artifactId>parte-03</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <groupId>com.jornadams</groupId>
-    <artifactId>parte-03</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>01-dominio</artifactId>
 
-    <modules>
-        <module>01-dominio</module>
-        <module>02-dominio</module>
-        <module>02-modelagem-api</module>
-    </modules>
-
+    
 </project>
