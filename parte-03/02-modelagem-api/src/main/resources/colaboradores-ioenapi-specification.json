@@ -1,0 +1,148 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Jornada Microsservicos",
+        "version": "1.0.0",
+        "description": "Exemplo de API do livro Jornada Microsservicos"
+    },
+    "paths": {
+        "/funcionarios": {
+            "summary": "Path used to manage the list of funcionarios.",
+            "description": "The REST endpoint/path used to list and create zero or more `Funcionario` entities.  This path contains a `GET` and `POST` operation to perform the list and create tasks, respectively.",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Funcionario"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Successful response - returns an array of `Funcionario` entities."
+                    }
+                },
+                "operationId": "getFuncionarios",
+                "summary": "List All Funcionarios",
+                "description": "Gets a list of all `Funcionario` entities."
+            },
+            "post": {
+                "requestBody": {
+                    "description": "A new `Funcionario` to be created.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Funcionario"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful response."
+                    }
+                },
+                "operationId": "createFuncionario",
+                "summary": "Create a Funcionario",
+                "description": "Creates a new instance of a `Funcionario`."
+            }
+        },
+        "/funcionarios/{funcionarioId}": {
+            "summary": "Path used to manage a single Funcionario.",
+            "description": "The REST endpoint/path used to get, update, and delete single instances of an `Funcionario`.  This path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete tasks, respectively.",
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Funcionario"
+                                }
+                            }
+                        },
+                        "description": "Successful response - returns a single `Funcionario`."
+                    }
+                },
+                "operationId": "getFuncionario",
+                "summary": "Get a Funcionario",
+                "description": "Gets the details of a single instance of a `Funcionario`."
+            },
+            "put": {
+                "requestBody": {
+                    "description": "Updated `Funcionario` information.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Funcionario"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful response."
+                    }
+                },
+                "operationId": "updateFuncionario",
+                "summary": "Update a Funcionario",
+                "description": "Updates an existing `Funcionario`."
+            },
+            "delete": {
+                "responses": {
+                    "204": {
+                        "description": "Successful response."
+                    }
+                },
+                "operationId": "deleteFuncionario",
+                "summary": "Delete a Funcionario",
+                "description": "Deletes an existing `Funcionario`."
+            },
+            "parameters": [
+                {
+                    "name": "funcionarioId",
+                    "description": "A unique identifier for a `Funcionario`.",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "Funcionario": {
+                "title": "Root Type for Funcionario",
+                "description": "Dados de colaboradores da empresa",
+                "type": "object",
+                "properties": {
+                    "funcionario_id": {
+                        "type": "string"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "departamento": {
+                        "type": "string"
+                    },
+                    "salario": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "funcionario_id": "11313131",
+                    "nome": "Joseph Blinker",
+                    "departamento": "Vendas",
+                    "salario": 1200
+                }
+            }
+        }
+    }
+}
