@@ -46,3 +46,11 @@ Para testar, pode ser utilizado o seguinte comando: `./send-payment.sh "{\"CPF\"
     "CodigoVerificador" : "001"
 }
 ````
+
+## Visualizando o painel do kafka
+
+Para melhor visialização do que acontece no kafka, é inicializado o projeto [Kafdrop](https://github.com/obsidiandynamics/kafdrop)
+
+Acesse:
+
+[http://localhost:19000/](http://localhost:19000/)
