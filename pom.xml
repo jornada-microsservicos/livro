@@ -18,6 +18,7 @@
         <module>parte-01</module>
         <module>parte-02</module>
         <module>parte-03</module>
+        <module>parte-04</module>
     </modules>
     <build>
         <pluginManagement>

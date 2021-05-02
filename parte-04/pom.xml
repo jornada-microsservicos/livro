@@ -11,7 +11,13 @@
     </parent>
 
     <groupId>com.jornadams</groupId>
-    <artifactId>parte-01</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>parte-04</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>01-desenvolvimento-orientado-a-mensagens</module>
+        <module>02-sistemas-reativos</module>
+
+    </modules>
 
 </project>
