@@ -19,6 +19,7 @@
         <module>parte-02</module>
         <module>parte-03</module>
         <module>parte-04</module>
+        <module>parte-05</module>
     </modules>
     <build>
         <pluginManagement>

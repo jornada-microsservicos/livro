@@ -1,0 +1,60 @@
+# Este é um workflow básico para configurar uma automação de um microsserviço
+# Java utilizando Actions
+name: automacao-livro-microsservicos
+
+# Este workflow será acionado em qualquer push para o repositório
+on: [push]
+
+# Lista de jobs a serem executadas em sequência
+jobs:
+  # Configurando o ciclo de construção da aplicação
+  build:
+    # Utilizando a última release do Ubuntu como ambiente base
+    runs-on: ubuntu-latest
+
+    # Sequência de passos que serão executados como parte do job "build"
+    steps:
+      # Utiliza uma action pronta para realizar o checkout do projeto no contexto
+      # $GITHUB_WORKSPACE para que a automação tenha acesso
+      - name: Baixando o código do projeto
+        uses: actions/checkout@v2
+
+      # https://github.com/marketplace/actions/setup-java-jdk
+      # Configura o ambiente Java a ser utilizado
+      - name: Configurando o JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: "11" # versão do JDK disponível no path
+          java-package: jdk # definindo como JDK (mas também poderia ser JRE...)
+          architecture: x64 # define a arquitetura x64
+
+      # Melhorando a performance utilizando cache dos pacotes do Maven
+      - name: Armazenar Cache dos pacotes Maven
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      # Configura cada etapa desejada (mas poderia ser apenas um comando)
+      - name: Limpando o ambiente
+        run: ./mvnw clean
+
+      - name: Compilando o código
+        run: ./mvnw compile
+
+      - name: Executando testes
+        run: |
+          ./mvnw test
+          echo 'Parabéns por realizar testes!'
+          echo 'Mas era só para testar múltiplos comandos :)'
+
+      - name: Empacotando a aplicação
+        run: ./mvnw package
+
+      # Armazenando o artefato gerado
+      - name: Arquivando o pacote .jar gerado
+        uses: actions/upload-artifact@v1
+        with:
+          name: snapshot
+          path: target/devops-0.0.1-SNAPSHOT.jar
