@@ -12,12 +12,12 @@ Requires Java 8
 
 This will create an executable jar file **book-exec.jar** within the _target_ maven folder. This can be started by executing the following command
 
-    java -jar target/book-exec.jar
+    java -jar target/livro-exec.jar
 
 
 To launch the test page, open your browser at the following URL
 
-    http://localhost:8080/index.html
+    http://localhost:8180/index.html
 
 ## Specification examples
 
