@@ -32,7 +32,7 @@ public class SegurancaApplication implements CommandLineRunner {
         l2.setNome("Livro 2");
         l2.setAutor("Autor 2");
 
-        service.adiciona(l1);
-        service.adiciona(l2);
+        service.adicionar(l1);
+        service.adicionar(l2);
     }
 }
