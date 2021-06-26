@@ -19,10 +19,10 @@ public class LoginService {
     }
 
     public JWTToken login(LoginDTO dto) throws BaseException {
-        if (dto.getLogin().equals("jornada.colaborativa") && dto.getSenha().equals("123456")) {
-            Usuario usuario = this.usuarioService.buscarUsuarioPorLoginESenha(dto.getLogin(), dto.getSenha());
-            return new JWTToken(JWTUtil.gerarToken(usuario));
+        Usuario usuario = this.usuarioService.buscarUsuarioPorLoginESenha(dto.getLogin(), dto.getSenha());
+        if (usuario == null) {
+            throw new NotFoundException("Login ou senha não encontrado!");
         }
-        throw new NotFoundException("Login ou senha não encontrado");
+        return new JWTToken(JWTUtil.gerarToken(usuario));
     }
 }

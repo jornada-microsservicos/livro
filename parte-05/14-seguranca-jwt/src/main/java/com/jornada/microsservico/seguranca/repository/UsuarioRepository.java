@@ -12,19 +12,26 @@ import com.jornada.microsservico.seguranca.domain.Usuario;
 public class UsuarioRepository {
 
     public Usuario procurarPorLoginESenha(String login, String senha) {
-        return new Usuario(1l, "Jornada Colaborativa", "jornada.colaborativa", "contato@jornadas.io");
+        var usuario = procurarPorLogin(login);
+        if (usuario != null && usuario.getSenha().equals(senha)) {
+            return usuario;
+        }
+        return null;
     }
 
     public Usuario procurarPorLogin(String login) {
-        return this.buscarTodos().stream().filter(usuario -> usuario.getLogin().equals(login)).collect(Collectors.toList())
-                .get(0);
+        List<Usuario> usuarios = this.buscarTodos().stream().filter(usuario ->
+                usuario.getLogin().equals(login)).collect(Collectors.toList());
+        if (usuarios != null && !usuarios.isEmpty()) {
+            return usuarios.get(0);
+        }
+        return null;
     }
 
     public List<Usuario> buscarTodos() {
         return Arrays.asList(
-                new Usuario(1l, "Jornada Colaborativa", "jornada.colaborativa", "contato@jornadas.io"),
-                new Usuario(2l, "Bruno Kaufmann", "bruno.kaufmann", "bruno.kaufmann@jornadas.io"),
-                new Usuario(3l, "Jonas Santos", "jonas.santos", "jonas.santos@jornadas.io"));
+                new Usuario(1l, "Admin", "admin", "admin@jornadas.io", "senha"),
+                new Usuario(2l, "Cliente", "usuario", "cliente@jornadas.io", "senha"));
     }
 
     public Usuario procuparPorId(Long id) {
