@@ -18,6 +18,7 @@
         <module>01-desenvolvimento-orientado-a-mensagens</module>
         <module>02-sistemas-reativos</module>
         <module>03-saga-choreography</module>
+        <module>04-circuit_breaker</module>
     </modules>
 
 </project>
