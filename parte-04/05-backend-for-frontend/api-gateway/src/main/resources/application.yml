@@ -1,0 +1,33 @@
+server:
+  port: ${PORT:8762}
+
+spring:
+  application:
+    name: api-gateway
+
+zuul:
+  #  prefix: /api/v1
+  routes:
+    micro-servico-extrato:
+      path: /micro-servico-extrato/**
+      serviceId: micro-servico-extrato
+    bff-mobile:
+      path: /bff-mobile/**
+      serviceId: bff-mobile
+
+documentation:
+  baseurl: http://localhost
+  swagger:
+    services:
+      - name: bff-mobile
+        url: ${documentation.baseurl}:8081/v2/api-docs
+        version: 2.0
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/

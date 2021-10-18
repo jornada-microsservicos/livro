@@ -1,0 +1,73 @@
+version: '3.3'
+services:
+
+  discovery:
+    image: jornada/microsservicos:service-discovery
+    container_name: service-discovery
+    build:
+      context: ./api-discovery
+      dockerfile: Dockerfile
+    ports:
+      - '8761:8761'
+    networks:
+      jornada_net:
+        ipv4_address: 172.29.1.1
+
+  gateway:
+    image: jornada/microsservicos:service-gateway
+    container_name: service-gateway
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - '8762:8762'
+    networks:
+      jornada_net:
+        ipv4_address: 172.29.1.2
+    depends_on:
+      - discovery
+    links:
+      - discovery:discovery
+
+  extrato:
+    image: jornada/microsservicos:micro-servico-extrato
+    container_name: micro-servico-extrato
+    build:
+      context: ./micro-servico-extrato
+      dockerfile: Dockerfile
+    ports:
+      - '7001:7001'
+    expose:
+      - '7001'
+    networks:
+      jornada_net:
+        ipv4_address: 172.29.1.3
+    depends_on:
+      - discovery
+    links:
+      - discovery:discovery
+
+  bff-mobile:
+    image: jornada/microsservicos:bff-mobile
+    container_name: bff-mobile
+    build:
+      context: ./bff-mobile
+      dockerfile: Dockerfile
+    ports:
+      - '8081:8081'
+    expose:
+      - '8081'
+    networks:
+      jornada_net:
+        ipv4_address: 172.29.1.4
+    depends_on:
+      - discovery
+    links:
+      - discovery:discovery
+
+networks:
+  jornada_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.29.0.0/16
